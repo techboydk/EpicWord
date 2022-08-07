@@ -41,22 +41,33 @@
     'writer':'PIERRE BONNARD'
     }, 
 ];
-  
-  
-  
-  
-  
-  
-  
-let j=0;
-let i = 0;
-let k=0;
-let l =0;
+
+function shuffle(array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
+
+
+let len = quotes.length
+let x=i=j=l=0;
 function typeWriter(){
-  if (i<quotes[k].quote.length) {
-    document.getElementById('quote').innerHTML += quotes[k].quote.charAt(i);
-    if(l<quotes[k].writer.length){
-      document.getElementById('writer').innerHTML += quotes[k].writer.charAt(i);
+  if (i<quotes[x].quote.length) {
+    document.getElementById('quote').innerHTML += quotes[x].quote.charAt(i);
+    if(l<quotes[x].writer.length){
+      document.getElementById('writer').innerHTML += quotes[x].writer.charAt(i);
     }
     setTimeout(typeWriter, 50);
     i++;
@@ -69,10 +80,10 @@ function textAnimation(){
     if(j<quotes.length){
     document.getElementById('quote').innerHTML =''
     document.getElementById('writer').innerHTML =''
+    x = Math.floor(Math.random()*len);
     typeWriter();
     setTimeout(textAnimation, 10000);
     j++;
-    k =j-1;
   }else{
     j=0
     textAnimation()
@@ -85,10 +96,18 @@ textAnimation(quotes);
 function createQuoteBox(q){
   let html = `<div class="quote-box"><p class="quote"><i>${q.quote}</i></p><p class="writer"><i>~ ${q.writer}</i></p></div>`;
   const container = document.querySelector('.quotes-container');
-  console.log(container)
   container.innerHTML += html;
   
 }
+
+
+let a=[];
+for(let i =0;i<len;i++){
+  a[i]=i;
+}
+shuffle(a);
+console.log(a)
 for(let i =0; i<quotes.length;i++){
-  createQuoteBox(quotes[i])
+  let y = a[i]
+  createQuoteBox(quotes[y])
 }
