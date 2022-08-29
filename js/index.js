@@ -4,7 +4,7 @@ function randomQuote(){
   document.getElementById('loading').innerText ='Loading...'
   return fetch("https://type.fit/api/quotes").then(function(response) { return response.json(); }).then(function(data) {
     return data;
-  });
+  });r
 }
 
 randomQuote().then((quotes) => {
@@ -18,7 +18,6 @@ randomQuote().then((quotes) => {
   },15000)
   function typerwriter(x){
     let i=j=0;
-    console.log(x)
     if(i<quotes[x].text.length){
       setInterval(()=>{
         document.getElementById('quote').innerHTML += quotes[x].text.charAt(i);
@@ -37,15 +36,19 @@ randomQuote().then((quotes) => {
     }
   }
   typerwriter(Math.floor(Math.random()*100));
+  readmore(quotes,10);
 })
-randomQuote().then((q) => {
-  for(let i=0;i<20;i++){
-    createQuoteBox(q[Math.floor(Math.random()*q.length)])
+function readmore(q,n){
+  document.getElementById('loading').innerText =''
+  for(let i=(n-10);i<n;i++){
+    createQuoteBox(q[i])
   }
-})
-
+}
 //////////create quote box///////
 function createQuoteBox(q){
+  if (q.author===null) {
+    q.author = 'Unknown';
+  }
   let html = `<div class="quote-box">
   <p class="quote">
     <i>
@@ -73,6 +76,7 @@ function createQuoteBox(q){
 
 
 // click event listener
+let count = 1
 document.querySelector('body').addEventListener("click", (event)=>{
   //constant declaration
       const menu_btn = document.querySelector('.nav-btn i')
@@ -83,6 +87,7 @@ document.querySelector('body').addEventListener("click", (event)=>{
       const soundbtn = document.querySelector('.sound');
       const copybtn = document.querySelector('.copy');
       const sharebtn = document.querySelector('.share');
+      const more = document.querySelector('.more');
       
  ///////////////////////
  
@@ -125,6 +130,15 @@ document.querySelector('body').addEventListener("click", (event)=>{
           })
         }
       }
+      
+      ////Read more
+      if(event.target.classList.contains('more')){
+        count++;
+        let n = count*10;
+        randomQuote().then((q) => {
+          readmore(q,n);
+        });
+      }
 },false);
   
 //add borderBottom to header
@@ -136,7 +150,3 @@ window.addEventListener('scroll',()=>{
     document.querySelector('.nav').style.borderBottom = 'none';
   }
 });
-
-///////Intro quote animation///////
-
-
