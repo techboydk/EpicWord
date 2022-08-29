@@ -1,4 +1,13 @@
-
+  //constant declaration
+      const menu_btn = document.querySelector('.nav-btn i'),
+      menuList = document.querySelector('.menu'),
+      soundbtn = document.querySelector('.sound'),
+      copybtn = document.querySelector('.copy'),
+      sharebtn = document.querySelector('.share'),
+      quotesContainer = document.querySelector('.quotes-container'),
+      introQuotesContainer = document.querySelector('.intro-quote'),
+      more = document.querySelector('.more');
+      
 //////randomQuote Api//////
 function randomQuote(){
   document.getElementById('loading').innerText ='Loading...'
@@ -70,25 +79,14 @@ function createQuoteBox(q){
     </div>
   </div>
   </div>`;
-  const container = document.querySelector('.quotes-container');
-  container.innerHTML += html;
+  quotesContainer.innerHTML += html;
 }
 
 
 // click event listener
 let count = 1
 document.querySelector('body').addEventListener("click", (event)=>{
-  //constant declaration
-      const menu_btn = document.querySelector('.nav-btn i')
-      const menuList = document.querySelector('.menu')
-      const form = document.querySelector('form')
-      const formActivater = document.querySelector('.form-active')
-      const backBtn = document.querySelector('.back-btn');
-      const soundbtn = document.querySelector('.sound');
-      const copybtn = document.querySelector('.copy');
-      const sharebtn = document.querySelector('.share');
-      const more = document.querySelector('.more');
-      
+
  ///////////////////////
  
  //////Toggle menuList//////
@@ -143,10 +141,19 @@ document.querySelector('body').addEventListener("click", (event)=>{
   
 //add borderBottom to header
 
-window.addEventListener('scroll',()=>{
+document.addEventListener('scroll',()=>{
   if(window.scrollY>0){
     document.querySelector('.nav').style.borderBottom = '.5px solid  var(--tertiary-color)'
   }else{
     document.querySelector('.nav').style.borderBottom = 'none';
   }
+  if (window.scrollY>300){
+    introQuotesContainer.style.transitionTimingFunction ='ease-in'
+    introQuotesContainer.style.transition ='1s'
+    introQuotesContainer.style.transitionProperty ='opacity'
+    introQuotesContainer.style.opacity ='0'
+  }else{
+    introQuotesContainer.style.opacity ='1'
+  }
 });
+console.log(quotesContainer)
